@@ -1,0 +1,35 @@
+<ship>
+
+    <grid width="20" height="20">
+        <prefabs>
+            <prefab char="_">TileVoid</prefab>
+            <prefab char="#">TileWall</prefab>
+            <prefab char=".">TileFloor</prefab>
+            <prefab char="-">TileDoorHor</prefab>
+            <prefab char="|">TileDoorVer</prefab>
+        </prefabs>
+        <rows>
+            <row>_____###____###_____</row>
+            <row>____#..#____#..#____</row>
+            <row>___#...##--##...#___</row>
+            <row>__#..............#__</row>
+            <row>_#................#_</row>
+            <row>#..................#</row>
+            <row>#......######......#</row>
+            <row>#......#....#......#</row>
+            <row>#......|....|......#</row>
+            <row>#......#....#......#</row>
+            <row>#......######......#</row>
+            <row>#..................#</row>
+            <row>#..................#</row>
+            <row>#..................#</row>
+            <row>#..................#</row>
+            <row>_#................#_</row>
+            <row>__#..............#__</row>
+            <row>___#............#___</row>
+            <row>____#..........#____</row>
+            <row>_____##########_____</row>
+        </rows>
+    </grid>
+
+</ship>
