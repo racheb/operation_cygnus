@@ -56,6 +56,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsVoidTile: 1
+  IsWallTile: 1
+  parentRoom: {fileID: 0}
 --- !u!212 &21202796
 SpriteRenderer:
   m_ObjectHideFlags: 1

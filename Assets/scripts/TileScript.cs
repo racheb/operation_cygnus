@@ -1,33 +1,29 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using Assets.scripts;
 
-public class TileScript : MonoBehaviour {
+namespace Assets.scripts {
 
-    public Boolean IsVoidTile = false;
+    public class TileScript : MonoBehaviour {
 
-	void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
+        public bool IsVoidTile = false;
+        public bool IsWallTile = false;
 
-    void OnMouseOver() {
-        if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
-            return;
+        public static Color OverlayColor = new Color(1, 1, .5f);
 
-        if (IsVoidTile) return;
+        public RoomScript parentRoom;
 
-        var prefab = ShipViewScene.Get().TilePrefabs["TileWall"];
-        if (Input.GetMouseButtonDown(1))
-            prefab = ShipViewScene.Get().TilePrefabs["TileFloor"];
-        var newTile = Instantiate(prefab, this.transform.position, Quaternion.identity) as GameObject;
-        newTile.transform.SetParent(this.transform.parent);
-        newTile.name = this.name;
-        Destroy(this.gameObject);
+        void OnMouseEnter() {
+            if (parentRoom != null) {
+                parentRoom.OnMouseEnter();
+            }
+        }
+
+        void OnMouseExit() {
+            if (parentRoom != null) {
+                parentRoom.OnMouseExit();
+            }
+        }
+
     }
 
 }
