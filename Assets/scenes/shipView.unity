@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ship: {fileID: 1875501723}
   ShipGrid: {fileID: 945174830}
-  TilePrefabs: {fileID: 0}
+  TilePrefabs: {fileID: 945174832}
 --- !u!4 &1306446135
 Transform:
   m_ObjectHideFlags: 0
