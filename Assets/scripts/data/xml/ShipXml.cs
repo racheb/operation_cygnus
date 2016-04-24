@@ -14,15 +14,30 @@ namespace Assets.scripts.data.xml {
         [XmlElement("grid")]
         public ShipGridXml Grid;
 
+        /// <summary>
+        /// Loads the ship data from a text asset.
+        /// </summary>
+        /// <param name="xml">The xml file as text asset</param>
+        /// <returns>The ship data</returns>
         public static ShipXml Load(TextAsset xml) {
             return Load(xml.text);
         }
 
+        /// <summary>
+        /// Loads the ship data from xml as a string.
+        /// </summary>
+        /// <param name="text">The xml file as string</param>
+        /// <returns>The ship data</returns>
         public static ShipXml Load(string text) {
             var serializer = new XmlSerializer(typeof(ShipXml));
             return serializer.Deserialize(new StringReader(text)) as ShipXml;
         }
 
+        /// <summary>
+        /// Loads the ship data from a xml file inside unity's asset folder structure.
+        /// </summary>
+        /// <param name="path">Relative path to the xml file from the Assets folder</param>
+        /// <returns>The ship data</returns>
         public static ShipXml LoadFile(string path) {
             var serializer = new XmlSerializer(typeof(ShipXml));
             string finalPath = Path.Combine(Application.dataPath, path);
@@ -31,20 +46,9 @@ namespace Assets.scripts.data.xml {
             }
         }
 
-        public override string ToString() {
-            return "[ShipXml]\n" + Grid.ToString() + "[/ShipXml]\n";
-        }
     }
 
     public class ShipGridXml {
-
-        /*
-        [XmlAttribute("width")]
-        public int Width;
-
-        [XmlAttribute("height")]
-        public int Height;
-        */
 
         [XmlArray("prefabs")]
         [XmlArrayItem("prefab")]
@@ -56,35 +60,29 @@ namespace Assets.scripts.data.xml {
 
         private Dictionary<char, GameObject> dict; 
 
-        public override string ToString() {
-            int Width = RowList[0].Row.Length;
-            int Height = RowList.Count;
-
-            var str = "[ShipGridXml]\nWidth -> " + Width + "\nHeight -> " + Height
-                   + "\n[PrefabList]\n";
-            str = PrefabList.Aggregate(str, (current, prefabXml) => current + prefabXml.ToString());
-            str += "[/PrefabList]\n[RowList]\n";
-            str = RowList.Aggregate(str, (current, rowXml) => current + rowXml.ToString());
-            str += "[/RowList]\n[/ShipGridXml]\n";
-            return str;
-        }
-
+        /// <summary>
+        /// Converts the raw tile data into an array of corresponding prefab objects
+        /// </summary>
+        /// <returns>Array of prefabs</returns>
         public GameObject[,] GetPrefabArray() {
-            int Width = RowList[0].Row.Length;
-            int Height = RowList.Count;
+            var width = RowList[0].Row.Length;
+            var height = RowList.Count;
+            var prefabs = new GameObject[width, height];
 
-            var prefabs = new GameObject[Width, Height];
-
-            for (var r = 0; r < Height; r++) {
+            for (var r = 0; r < height; r++) {
                 var row = RowList[r].Row;
-                for (var c = 0; c < Width; c++) {
-                    prefabs[c, Height - 1 - r] = GetPrefabDict()[row[c]];
+                for (var c = 0; c < width; c++) {
+                    prefabs[c, height - 1 - r] = GetPrefabDict()[row[c]];
                 }
             }
-
             return prefabs;
         }
 
+        /// <summary>
+        /// Returns the dictionary that maps characters in the xml file's grid definition to their
+        /// respective prefabs.
+        /// </summary>
+        /// <returns>char to GameObject dictionary</returns>
         public Dictionary<char, GameObject> GetPrefabDict() {
             return dict ?? (dict = PrefabList.ToDictionary(prefab => prefab.Char[0], prefab => 
                 ShipViewScene.Get().TilePrefabs[prefab.PrefabName]));
@@ -100,9 +98,6 @@ namespace Assets.scripts.data.xml {
         [XmlText]
         public string PrefabName;
 
-        public override string ToString() {
-            return "[ShipPrefabXml]\nChar -> " + Char + "\nPrefabName -> " + PrefabName + "\n[/ShipPrefabXml]\n";
-        }
     }
 
     public class ShipRowsXml {
@@ -110,9 +105,6 @@ namespace Assets.scripts.data.xml {
         [XmlText]
         public string Row;
 
-        public override string ToString() {
-            return "[ShipRowsXml]\nRow -> " + Row + "\n[/ShipRowXml]\n";
-        }
     }
 
 }

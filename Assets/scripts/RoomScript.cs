@@ -8,7 +8,10 @@ namespace Assets.scripts {
 
     public class RoomScript : MonoBehaviour {
 
+        //Makes room non-interactable for player
         public bool IsVoidRoom = false;
+
+        //Color for mouse-over overlay
         public static Color OverlayColor = new Color(1, 1, .5f);
 
         public void OnMouseEnter() {

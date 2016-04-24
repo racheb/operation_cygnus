@@ -5,11 +5,13 @@ namespace Assets.scripts {
 
     public class TileScript : MonoBehaviour {
 
+        // The tile is invisible void tile, not interactable by player or characters in game
         public bool IsVoidTile = false;
+
+        // The tile is a wall and thereby delimits rooms and can't be passed through
         public bool IsWallTile = false;
 
-        public static Color OverlayColor = new Color(1, 1, .5f);
-
+        // The room script of the room the tile is in
         public RoomScript parentRoom;
 
         void OnMouseEnter() {
